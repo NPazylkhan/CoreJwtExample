@@ -1,4 +1,5 @@
 ﻿using CoreJwtExample.IRepository;
+using CoreJwtExample.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -35,6 +36,63 @@ namespace CoreJwtExample.Controllers
         {
             var list = await _customerRepository.Gets2();
             return Ok(list);
+        }
+
+        [HttpPost]
+        [Route("Save")]
+        public async Task<ActionResult> Save(Customer customer)
+        {
+            try
+            {
+                customer = await _customerRepository.Save(customer);
+                if(customer.Message == null)
+                {
+                    return Ok(customer);
+                }
+                else
+                {
+                    return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("GetByCustomerId/{customerId}")]
+        public async Task<IActionResult> GetByCustomerId(int customerId)
+        {
+            if(customerId == 0)
+            {
+                return Ok(new Customer());
+            }
+            var customer = await _customerRepository.Get(customerId);
+            return Ok(customer);
+        }
+
+        [HttpDelete]
+        [Route("Delete/{customerId}")]
+        public async Task<IActionResult> Delete(int customerId)
+        {
+            try
+            {
+                Customer customer = new Customer() { CustomerId = customerId };
+                string message = await _customerRepository.Delete(customer);
+                if(message == "Deleted")
+                {
+                    return Ok(message);
+                }
+                else
+                {
+                    return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
     }
 }
