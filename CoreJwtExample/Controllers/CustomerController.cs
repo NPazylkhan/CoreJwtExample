@@ -51,7 +51,7 @@ namespace CoreJwtExample.Controllers
                 }
                 else
                 {
-                    return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+                    return StatusCode((int)HttpStatusCode.InternalServerError, customer.Message);
                 }
             }
             catch (Exception ex)
