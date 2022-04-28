@@ -79,15 +79,19 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
-    app.UseSwaggerUI(c=>c.SwaggerEndpoint("/swagger/v1/swagger.json","CoreJwtExample v1"));
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CoreJwtExample v1"));
 }
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
 app.UseCors("SiteCorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseEndpoints(endpoints => 
+{ 
+    endpoints.MapControllers(); 
+});
 
 app.Run();
