@@ -42,12 +42,12 @@ namespace CoreJwtExample.Controllers
 
         [HttpPost]
         [Route("Save")]
-        public async Task<ActionResult> Save([FromForm] Customer customer)
+        public async Task<ActionResult> Save(Customer customer)
         {
             try
             {
-                /*if (ModelState.IsValid)
-                {*/
+                if (ModelState.IsValid)
+                {
                     string message = "";
                     var files = customer.Files;
                     customer.Files = null;
@@ -91,15 +91,41 @@ namespace CoreJwtExample.Controllers
                     {
                         return StatusCode((int)HttpStatusCode.InternalServerError, message);
                     }
-                /*}
+                }
                 else
                 {
                     return StatusCode((int)HttpStatusCode.InternalServerError, "Form is not valid"); ;
-                }*/
+                }
             }
             catch (Exception ex)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("AddFile")]
+        public void AddFile(IFormFile files)
+        {
+            if (files != null)
+            {
+                string path = _webHostEnvironment.WebRootPath + "\\Photos\\";
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                string fileName = "CustomerPic.png";
+                if (System.IO.File.Exists(path + fileName))
+                {
+                    System.IO.File.Delete(path + fileName);
+                }
+
+                using (FileStream fileStream = System.IO.File.Create(path + fileName))
+                {
+                    files.CopyTo(fileStream);
+                    fileStream.Flush();
+                }
             }
         }
 
