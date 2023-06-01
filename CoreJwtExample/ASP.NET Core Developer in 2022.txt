@@ -1,4 +1,4 @@
-General Development Skills: GIT - Version Control(GitHub, GitLab), HTTP/HTTPS protocol, Search for solutions, dotnet CLI, Data Structures and Algorithms
+General Development Skills: GIT - Version Control(GitHub, GitLab) and Azure DevOps, HTTP/HTTPS protocol, Search for solutions, dotnet CLI, Data Structures and Algorithms
 C#: C# versions 7-10, .NET 3-6
 SQL: Fundamentals about database design and SQL Syntax, Stored Procedures, Constraints, Triggers
 ASP.NET Core Basics: MVC, REST, Razor Pages, Middlewares, Filters & Attributes, Application Settings & Configurations, Authentication & Authorization (Identity, IdentityServer, Auth0/OIDC)
@@ -17,7 +17,7 @@ Template Engines: Razor
 Libraries: MediatR, FluentValidation, Swashbucle
 
 
-Основные навыки разработки: GIT - Version Control(GitHub, GitLab), HTTP/HTTPS протоколы, поиск решений, dotnet CLI, Структуры данных и алгоритмы
+Основные навыки разработки: GIT - Version Control(GitHub, GitLab) и Azure DevOps, HTTP/HTTPS протокол, поиск решений, dotnet CLI, Структуры данных и алгоритмы
 C#: C# версий 7-10, .NET 3-6
 SQL: Основы проектирования баз данных и синтаксиса SQL (fundamentals about database design and sql syntax), Хранимые процедуры (Stored Procedures), Ограничения (Constraints), Триггеры (Triggers)
 Основы ASP.NET Core: MVC, REST, Razor Pages, Middlewares, фильтры и атрибуты, настройки и конфигурации приложений, аутентификация и авторизация (Identity, IdentityServer, Auth0/OIDC)
