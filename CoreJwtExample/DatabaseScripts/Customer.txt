@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Customer] (
+    [CustomerId]   VARCHAR (50) NOT NULL,
+    [CustomerName] VARCHAR (50) NOT NULL,
+    [Role]         VARCHAR (50) NOT NULL
+);
+
+

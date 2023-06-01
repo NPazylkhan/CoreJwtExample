@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[User] (
+    [UserId]   VARCHAR (50) NOT NULL,
+    [UserName] VARCHAR (50) NOT NULL,
+    [Email]    VARCHAR (50) NOT NULL,
+    [Password] VARCHAR (50) NOT NULL
+);
+
+

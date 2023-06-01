@@ -1,0 +1,68 @@
+﻿create procedure [dbo].[SP_User]
+	@UserId varchar(50),
+	@UserName varchar(50),
+	@Email varchar(50),
+	@Password varchar(50),
+	@OperationType int
+as
+
+begin tran
+	if(@OperationType = 1) --insert
+	begin
+		if exists(select * from  [User] where UserName = @UserName)
+		Begin 
+			rollback
+				RAISERROR(N'This username already exist!', 16,1);
+			return
+		end
+
+		if exists(select * from [User] Where Email=@Email)
+		begin
+			rollback 
+				raiserror(N'This email already exist!',16,1);
+			return
+		end
+
+		set @UserId = (select count(*) from [User]) + 1
+
+		insert into [User](UserId, UserName, Email, [Password])	
+				values(@UserId,@UserName, @Email,@Password)
+
+		select * from [User] where UserId= @UserId
+
+	end
+
+	else if(@OperationType=2) --update
+	begin 
+		if(@UserId=0)
+		begin
+			rollback
+				raiserror(N'Invalid User!',16,1);
+			return
+		end
+
+		if exists(select * from [User] where Email=@Email and UserId = @UserId)
+		begin	
+			rollback
+				raiserror(N'This email already exist!',16,1);
+			return
+		end
+
+		update [User] set UserName = @UserName,
+							Email=@Email
+							where UserId = @UserId
+
+		select * from [User] Where UserId =@UserId
+	end
+	else if(@OperationType=3) --delete
+	begin
+		If(@UserId = 0)
+		begin	
+			rollback
+				raiserror(N'Invalid User!',16,1);
+			return
+		end
+
+		delete from [User] where UserId=@UserId
+	end
+commit tran

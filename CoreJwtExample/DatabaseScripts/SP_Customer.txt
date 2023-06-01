@@ -1,0 +1,47 @@
+﻿create procedure [dbo].[SP_Customer]
+	@CustomerId varchar(50),
+	@CustomerName varchar(50),
+	@Role varchar(50),
+	@OperationType int
+as
+
+begin tran
+	if(@OperationType = 1) --insert
+	begin
+		set @CustomerId = (select count(*) from Customer)+1
+
+		insert into Customer(CustomerId, CustomerName, [Role])
+					values(@CustomerId,@CustomerName,@Role)
+
+		select * from Customer where CustomerId = @CustomerId
+
+	end
+
+	else if(@OperationType=2) --update
+	begin 
+		if(@CustomerId=0)
+		begin
+			rollback
+				raiserror(N'Invalid Customer!',16,1);
+			return
+		end
+				
+		update Customer set CustomerName = @CustomerName,
+							[Role]=@Role
+							where CustomerId = @CustomerId
+
+		select * from Customer where CustomerId = @CustomerId
+
+	end
+	else if(@OperationType=3) --delete
+	begin
+		If(@CustomerId = 0)
+		begin	
+			rollback
+				raiserror(N'Invalid Customer!',16,1);
+			return
+		end
+
+		delete from Customer where CustomerId=@CustomerId
+	end
+commit tran
